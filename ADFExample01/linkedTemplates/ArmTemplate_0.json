@@ -393,7 +393,9 @@
 								}
 							},
 							"sink": {
-								"type": "AzureSqlSink"
+								"type": "AzureSqlSink",
+								"preCopyScript": "truncate table MOVCONTABLES",
+								"disableMetricsCollection": false
 							},
 							"enableStaging": false,
 							"validateDataConsistency": false,
@@ -495,6 +497,13 @@
 							"type": "PipelineReference"
 						},
 						"parameters": {}
+					},
+					{
+						"pipelineReference": {
+							"referenceName": "Productos",
+							"type": "PipelineReference"
+						},
+						"parameters": {}
 					}
 				],
 				"type": "ScheduleTrigger",
@@ -509,7 +518,8 @@
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/CargaInterfazContable')]"
+				"[concat(variables('factoryId'), '/pipelines/CargaInterfazContable')]",
+				"[concat(variables('factoryId'), '/pipelines/Productos')]"
 			]
 		},
 		{
