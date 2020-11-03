@@ -1,0 +1,40 @@
+{
+	"name": "SourceDataset_nps",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SourceProducts",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "MovContables20201101",
+				"container": "luiscontenedor"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "fecha",
+				"type": "String"
+			},
+			{
+				"name": "cuenta",
+				"type": "String"
+			},
+			{
+				"name": "movimiento",
+				"type": "String"
+			},
+			{
+				"name": "valor",
+				"type": "String"
+			}
+		]
+	}
+}
