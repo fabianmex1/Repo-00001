@@ -1,0 +1,12 @@
+{
+	"name": "OpenWeather_S",
+	"properties": {
+		"annotations": [],
+		"type": "HttpServer",
+		"typeProperties": {
+			"url": "https://openweathermap.org/city/3530597",
+			"enableServerCertificateValidation": true,
+			"authenticationType": "Anonymous"
+		}
+	}
+}
