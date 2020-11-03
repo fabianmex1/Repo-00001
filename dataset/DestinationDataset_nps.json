@@ -1,0 +1,41 @@
+{
+	"name": "DestinationDataset_nps",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "fecha",
+				"type": "datetime2",
+				"precision": 27,
+				"scale": 7
+			},
+			{
+				"name": "cuenta",
+				"type": "nvarchar",
+				"precision": 0,
+				"scale": 0
+			},
+			{
+				"name": "movimiento",
+				"type": "nvarchar",
+				"precision": 0,
+				"scale": 0
+			},
+			{
+				"name": "valor",
+				"type": "decimal",
+				"precision": 38,
+				"scale": 18
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "MOVCONTABLES"
+		}
+	}
+}
