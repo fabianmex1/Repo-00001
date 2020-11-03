@@ -1,0 +1,17 @@
+{
+	"name": "DestinationDataset_glu",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ConnectionSqlDatabase1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "MOVCONTABLES"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

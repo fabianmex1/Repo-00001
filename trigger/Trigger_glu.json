@@ -1,0 +1,25 @@
+{
+	"name": "Trigger_glu",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "CargaInterfazContable",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Hour",
+				"interval": 24,
+				"startTime": "2020-10-30T12:25:00Z",
+				"endTime": "2020-10-31T17:27:00Z",
+				"timeZone": "UTC"
+			}
+		}
+	}
+}

@@ -1,0 +1,126 @@
+{
+	"name": "CargaInterfazContable",
+	"properties": {
+		"description": "Trasladar información de mi file a sql database",
+		"activities": [
+			{
+				"name": "Copy_glu",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [
+					{
+						"name": "Source",
+						"value": "luiscontenedor//MovContables20201101"
+					},
+					{
+						"name": "Destination",
+						"value": "dbo.EXAMPLE"
+					}
+				],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": false,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings",
+							"skipLineCount": 0
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"parallelCopies": 1,
+					"validateDataConsistency": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "fecha",
+									"type": "DateTime",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "fecha",
+									"type": "DateTime",
+									"physicalType": "datetime2"
+								}
+							},
+							{
+								"source": {
+									"name": "cuenta",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "cuenta",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "movimiento",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "movimiento",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "valor",
+									"type": "Decimal",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "valor",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 18,
+									"precision": 38
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": false,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SourceDataset_glu",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DestinationDataset_glu",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2020-10-30T19:29:35Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
