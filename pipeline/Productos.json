@@ -108,7 +108,10 @@
 				"outputs": [
 					{
 						"referenceName": "DestinationDataset_nps",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"table_name": "MOVCONTABLES"
+						}
 					}
 				]
 			}
