@@ -1,0 +1,451 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "ADFExample01"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/pipeline1')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Wheater pipeline",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "JsonSource",
+								"storeSettings": {
+									"type": "HttpReadSettings",
+									"requestMethod": "GET"
+								},
+								"formatSettings": {
+									"type": "JsonReadSettings"
+								}
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"tableOption": "autoCreate"
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"path": "$['coord']['lon']"
+										},
+										"sink": {
+											"name": "lon"
+										}
+									},
+									{
+										"source": {
+											"path": "$['coord']['lat']"
+										},
+										"sink": {
+											"name": "lat"
+										}
+									},
+									{
+										"source": {
+											"path": "[['id']"
+										},
+										"sink": {
+											"name": "id1"
+										}
+									},
+									{
+										"source": {
+											"path": "[['main']"
+										},
+										"sink": {
+											"name": "main"
+										}
+									},
+									{
+										"source": {
+											"path": "[['description']"
+										},
+										"sink": {
+											"name": "description"
+										}
+									},
+									{
+										"source": {
+											"path": "[['icon']"
+										},
+										"sink": {
+											"name": "icon"
+										}
+									},
+									{
+										"source": {
+											"path": "$['base']"
+										},
+										"sink": {
+											"name": "base"
+										}
+									},
+									{
+										"source": {
+											"path": "$['main']['temp']"
+										},
+										"sink": {
+											"name": "temp"
+										}
+									},
+									{
+										"source": {
+											"path": "$['main']['feels_like']"
+										},
+										"sink": {
+											"name": "feels_like"
+										}
+									},
+									{
+										"source": {
+											"path": "$['main']['temp_min']"
+										},
+										"sink": {
+											"name": "temp_min"
+										}
+									},
+									{
+										"source": {
+											"path": "$['main']['temp_max']"
+										},
+										"sink": {
+											"name": "temp_max"
+										}
+									},
+									{
+										"source": {
+											"path": "$['main']['pressure']"
+										},
+										"sink": {
+											"name": "pressure"
+										}
+									},
+									{
+										"source": {
+											"path": "$['main']['humidity']"
+										},
+										"sink": {
+											"name": "humidity"
+										}
+									},
+									{
+										"source": {
+											"path": "$['visibility']"
+										},
+										"sink": {
+											"name": "visibility"
+										}
+									},
+									{
+										"source": {
+											"path": "$['wind']['speed']"
+										},
+										"sink": {
+											"name": "speed"
+										}
+									},
+									{
+										"source": {
+											"path": "$['wind']['deg']"
+										},
+										"sink": {
+											"name": "deg"
+										}
+									},
+									{
+										"source": {
+											"path": "$['clouds']['all']"
+										},
+										"sink": {
+											"name": "all"
+										}
+									},
+									{
+										"source": {
+											"path": "$['dt']"
+										},
+										"sink": {
+											"name": "dt"
+										}
+									},
+									{
+										"source": {
+											"path": "$['sys']['type']"
+										},
+										"sink": {
+											"name": "type"
+										}
+									},
+									{
+										"source": {
+											"path": "$['sys']['id']"
+										},
+										"sink": {
+											"name": "id2"
+										}
+									},
+									{
+										"source": {
+											"path": "$['sys']['country']"
+										},
+										"sink": {
+											"name": "country"
+										}
+									},
+									{
+										"source": {
+											"path": "$['sys']['sunrise']"
+										},
+										"sink": {
+											"name": "sunrise"
+										}
+									},
+									{
+										"source": {
+											"path": "$['sys']['sunset']"
+										},
+										"sink": {
+											"name": "sunset"
+										}
+									},
+									{
+										"source": {
+											"path": "$['timezone']"
+										},
+										"sink": {
+											"name": "timezone"
+										}
+									},
+									{
+										"source": {
+											"path": "$['id']"
+										},
+										"sink": {
+											"name": "id3"
+										}
+									},
+									{
+										"source": {
+											"path": "$['name']"
+										},
+										"sink": {
+											"name": "name"
+										}
+									},
+									{
+										"source": {
+											"path": "$['cod']"
+										},
+										"sink": {
+											"name": "cod"
+										}
+									}
+								],
+								"collectionReference": "$['weather']"
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "Json1",
+								"type": "DatasetReference"
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DestinationDataset_nps",
+								"type": "DatasetReference",
+								"parameters": {
+									"table_name": "weather"
+								}
+							}
+						]
+					}
+				],
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/Json1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/OpenWeather_S')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "HttpServer",
+				"typeProperties": {
+					"url": "http://api.openweathermap.org/data/2.5/weather?q=London&appid=0d182a32cb83d38a75c5a5548d37db25",
+					"enableServerCertificateValidation": true,
+					"authenticationType": "Anonymous"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Json1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "OpenWeather_S",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "HttpServerLocation"
+					}
+				},
+				"schema": {
+					"type": "object",
+					"properties": {
+						"coord": {
+							"type": "object",
+							"properties": {
+								"lon": {
+									"type": "number"
+								},
+								"lat": {
+									"type": "number"
+								}
+							}
+						},
+						"weather": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {
+									"id": {
+										"type": "integer"
+									},
+									"main": {
+										"type": "string"
+									},
+									"description": {
+										"type": "string"
+									},
+									"icon": {
+										"type": "string"
+									}
+								}
+							}
+						},
+						"base": {
+							"type": "string"
+						},
+						"main": {
+							"type": "object",
+							"properties": {
+								"temp": {
+									"type": "number"
+								},
+								"feels_like": {
+									"type": "number"
+								},
+								"temp_min": {
+									"type": "number"
+								},
+								"temp_max": {
+									"type": "number"
+								},
+								"pressure": {
+									"type": "integer"
+								},
+								"humidity": {
+									"type": "integer"
+								}
+							}
+						},
+						"visibility": {
+							"type": "integer"
+						},
+						"wind": {
+							"type": "object",
+							"properties": {
+								"speed": {
+									"type": "number"
+								},
+								"deg": {
+									"type": "integer"
+								}
+							}
+						},
+						"clouds": {
+							"type": "object",
+							"properties": {
+								"all": {
+									"type": "integer"
+								}
+							}
+						},
+						"dt": {
+							"type": "integer"
+						},
+						"sys": {
+							"type": "object",
+							"properties": {
+								"type": {
+									"type": "integer"
+								},
+								"id": {
+									"type": "integer"
+								},
+								"country": {
+									"type": "string"
+								},
+								"sunrise": {
+									"type": "integer"
+								},
+								"sunset": {
+									"type": "integer"
+								}
+							}
+						},
+						"timezone": {
+							"type": "integer"
+						},
+						"id": {
+							"type": "integer"
+						},
+						"name": {
+							"type": "string"
+						},
+						"cod": {
+							"type": "integer"
+						}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/OpenWeather_S')]"
+			]
+		}
+	]
+}

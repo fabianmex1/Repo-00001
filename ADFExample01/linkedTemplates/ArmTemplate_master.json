@@ -23,6 +23,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'SourceProducts'"
 		},
+		"OpenWeather_S_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "http://api.openweathermap.org/data/2.5/weather?q=London&appid=0d182a32cb83d38a75c5a5548d37db25"
+		},
 		"containerUri": {
 			"type": "string",
 			"metadata": "URI to storage account containing linked ARM templates"
@@ -61,6 +65,9 @@
 					},
 					"SourceProducts_connectionString": {
 						"value": "[parameters('SourceProducts_connectionString')]"
+					},
+					"OpenWeather_S_properties_typeProperties_url": {
+						"value": "[parameters('OpenWeather_S_properties_typeProperties_url')]"
 					}
 				}
 			},

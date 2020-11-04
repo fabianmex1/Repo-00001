@@ -17,6 +17,9 @@
 		"SourceProducts_connectionString": {
 			"value": ""
 		},
+		"OpenWeather_S_properties_typeProperties_url": {
+			"value": "http://api.openweathermap.org/data/2.5/weather?q=London&appid=0d182a32cb83d38a75c5a5548d37db25"
+		},
 		"containerUri": {
 			"value": ""
 		},
