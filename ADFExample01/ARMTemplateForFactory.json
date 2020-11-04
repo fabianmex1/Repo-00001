@@ -595,7 +595,8 @@
 							},
 							"sink": {
 								"type": "AzureSqlSink",
-								"tableOption": "autoCreate"
+								"preCopyScript": "truncate table weather",
+								"disableMetricsCollection": false
 							},
 							"enableStaging": false,
 							"translator": {
